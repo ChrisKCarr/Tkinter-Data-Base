@@ -15,6 +15,11 @@ Delete entries
 from tkinter import *
 import backend
 
+def get_selected_row(event):
+    global selected_tuple
+    index=list1.curselection()
+    selected_tuple=list1.get(index)
+
 def view_command():
     list1.delete(0,END)
     for row in backend.view():
@@ -29,6 +34,8 @@ def add_command():
     list1.delete(0,END)
     list1.insert(END,(title_text.get(),author_text.get(),year_text.get(),isbn_text.get()))
 
+def delete_command():
+    backend.delete(selected_tuple[0])
 
 window=Tk()
 
@@ -69,6 +76,8 @@ sb1.grid(row=2,column=2,rowspan=6)
 list1.configure(yscrollcommand=sb1.set)
 sb1.configure(command=list1.yview)
 
+list1.bind('<<ListboxSelect>>',get_selected_row)
+
 b1=Button(window,text="View all",width=12,command=view_command)
 b1.grid(row=2,column=3)
 
@@ -81,10 +90,11 @@ b3.grid(row=4,column=3)
 b4=Button(window,text="Update selected",width=12)
 b4.grid(row=5,column=3)
 
-b5=Button(window,text="Delete selected",width=12)
+b5=Button(window,text="Delete selected",width=12,command=delete_command)
 b5.grid(row=6,column=3)
 
 b6=Button(window,text="Close",width=12)
 b6.grid(row=7,column=3)
 
 window.mainloop()
+
