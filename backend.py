@@ -31,11 +31,10 @@ class Database:
         self.cur.execute("UPDATE book SET title=?, author=?, year=?, isbn=? WHERE id=?",(title,author,year,isbn,id))
         self.conn.commit()
 
-def __del__(self):
-    self.conn.close()
 
 #insert("The Sun","John Smith",1918,913123132)
 #delete(3)
 #update(4,"The moon","John Smooth",1917,99999)
 #print(view())
 #print(search(author="John Smooth"))
+
